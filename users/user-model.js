@@ -6,8 +6,9 @@ const db = knex(config);
 
 module.exports = {
   find, // find() - fetches all users from db
-  register, // register(credentials) - registers user
-  login, // login(credentials) - logs user in
+  register, // register(credentials) 
+  login, // login(credentials)
+  findByUsername, // findByUsername(username)
 }
 
 function find() {
@@ -16,6 +17,10 @@ function find() {
 
 function findById(id) {
   return db('users').where({ id });
+}
+
+function findByUsername(username) {
+  return db('users').where({ username }).first();
 }
 
 function register(credentials) {
