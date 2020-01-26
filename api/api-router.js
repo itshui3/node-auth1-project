@@ -1,7 +1,11 @@
+//build
 const express = require('express');
-
 const router = express.Router();
+//routes
+const userRouter = require('../users/user-router');
 
+router.use('/users', userRouter);
+//api native
 const responseBody = `
   <h1>API Routes</h1>
 
@@ -14,7 +18,6 @@ const responseBody = `
   <h2>Users</h2>
   <p>/api/users - get</p>
 `
-
 router.get('/', (req, res) => {
   res.status(200).send(responseBody);
 })
