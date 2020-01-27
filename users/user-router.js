@@ -31,19 +31,8 @@ router.post('/register', ...auth.regMwStack, (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
-  console.log(req.headers.hashed_password);
-  const username = req.headers.username;
-  const textpassword = req.headers.hashed_password;
-  userdb.findByUsername(username)
-    .then( resou => {
-      console.log(resou, 'resou');
-      if(username && bcrypt.compareSync(textpassword, resou.hashed_password)) {
-          res.status(200).json({ message: `status 200: welcome ${resou.username}`})
-        } else {
-          res.status(401).json({ message: `status 401: invalid credentials` })
-        }
-    })
+router.post('/login', ...auth.loginMwStack, (req, res) => {
+  res.status(200).json({ message: `status 200: successfully logged in` })
 })
 
 module.exports = router;
