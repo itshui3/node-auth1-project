@@ -18,7 +18,18 @@ router.post('/register', ...reg_middleware_st, (req, res) => {
 })
 
 router.post('/login', ...login_middleware_st, (req, res) => {
+  // make it so it doesn't just login, it should also create a session for user
+  req.session.username = req.headers.username;
   res.status(200).json({ message: `status 200: logged in` });
+})
+
+router.get('/logout', (req, res) => {
+  if(req.session && req.session.username) {
+    req.session = null;
+    res.status(200).json({ message: `logged out`})
+  } else {
+    res.send(`not logged in to begin with`)
+  }
 })
 
 module.exports = router;

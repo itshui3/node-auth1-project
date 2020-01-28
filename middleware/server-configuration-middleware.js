@@ -7,6 +7,8 @@ const KnexSessionStore = require('connect-session-knex')(session);
 
 const db = require('knex')(require('../knexfile').development);
 
+const restrict = require('./restricted-middleware');
+
 const sessionConfig = {
   name: 'monkey', // sid,
   secret: 'keep it secret', // server uses this secret to verify cookie is valid. Good candidate to be saved in env var
@@ -32,6 +34,7 @@ module.exports = server => {
   server.use(cors());
   server.use(morgan('common'));
   server.use(session(sessionConfig));
+  server.use(restrict);
 }
 
 // so I'm packaging a function that takes in server as parameter and runs configurations on the server that are applied through closure
