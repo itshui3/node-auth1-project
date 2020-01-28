@@ -16,16 +16,16 @@ const sessionConfig = {
     maxAge: 1000 * 30,
     secure: false, // true in production
     httpOnly: true, // always true, cannot be accessed from js
-    store: new KnexSessionStore({
-      knex: db,
-      tablename: 'sessions',
-      sidfieldname: 'sid',
-      createtable: true,
-      clearInterval: 1000 * 60 * 5
-    })
   },
   resave: false, // 
   saveUninitialized: false, // GDPR compliance, laws against setting cookies automatically
+  store: new KnexSessionStore({
+    knex: db,
+    tablename: 'sessions',
+    sidfieldname: 'sid',
+    createtable: true,
+    clearInterval: 1000 * 60 * 5
+  })
 }
 
 module.exports = server => {
